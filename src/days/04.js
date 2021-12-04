@@ -622,7 +622,6 @@ const testData = `7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,1
  2  0 12  3  7`;
 
 const readData = (str) => {
-  window.testData = str;
   const rows = str.split('\n');
   const numbers = rows[0].split(',').map(v => parseInt(v, 10));
   let boardIndex = -1;
@@ -645,18 +644,10 @@ const readData = (str) => {
   return { numbers, boards };
 };
 
-const boardHasBingo = ({ selection, board }) => {
-  const lastSelection = selection[selection.length - 1];
-  if (board[0].some((val, index) => board.every(row => selection.includes(row[index])))) {
-    console.log({ lastSelection, columnBingo: board });
-    return true;
-  }
-  if (board.some(row => row.every(v => selection.includes(v)))) {
-    console.log({ lastSelection, rowBingo: board });
-    return true;
-  }
-  return false;
-};
+const boardHasBingo = ({ selection, board }) => (
+  board[0].some((val, index) => board.every(row => selection.includes(row[index])))
+  || board.some(row => row.every(v => selection.includes(v)))
+);
 
 const findWinner = (str) => {
   const { numbers, boards } = readData(str);
@@ -694,17 +685,17 @@ const findLastWinner = (str) => {
   let losers = [...boards];
   let winner = [];
   let index = 0;
-  const updateLosers = (board, selection) => {
+  let selection;
+  const updateLosers = (board) => {
     if (boardHasBingo({ selection, board })) {
       winner = board;
       losers = losers.filter(b => b !== board);
     }
   };
 
-  let selection;
   while (losers.length) {
     selection = numbers.slice(0, index + 1);
-    losers.forEach(board => updateLosers(board, selection));
+    losers.forEach(board => updateLosers(board));
     if (losers.length) {
       index += 1;
     }
@@ -718,10 +709,8 @@ const findLastWinner = (str) => {
   }));
   const score = unmarkedVal * numbers[index];
 
-  console.log({ unmarkedVal, lastNumber: numbers[index] });
-  console.log({ losers, loser: winner, score });
   return score;
-}
+};
 
 export default {
   readTest: () => readData(testData),
