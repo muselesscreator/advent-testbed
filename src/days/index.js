@@ -5,6 +5,7 @@ import day4 from './04';
 import day5 from './05';
 import day6 from './06';
 import day7 from './07';
+import day8 from './08';
 
 export default [
   { name: '01', functions: day1 },
@@ -14,4 +15,5 @@ export default [
   { name: '05', functions: day5 },
   { name: '06', functions: day6 },
   { name: '07', functions: day7 },
+  { name: '08', functions: day8 },
 ];
