@@ -1,19 +1,19 @@
-import day1 from './01';
-import day2 from './02';
-import day3 from './03';
-import day4 from './04';
-import day5 from './05';
-import day6 from './06';
-import day7 from './07';
-import day8 from './08';
+const days = [];
 
-export default [
-  { name: '01', functions: day1 },
-  { name: '02', functions: day2 },
-  { name: '03', functions: day3 },
-  { name: '04', functions: day4 },
-  { name: '05', functions: day5 },
-  { name: '06', functions: day6 },
-  { name: '07', functions: day7 },
-  { name: '08', functions: day8 },
-];
+const loadDay = (day) => {
+  days.push({ name: day, functions: require(`./${day}`).default });
+};
+
+[
+  '01',
+  '02',
+  '03',
+  '04',
+  '05',
+  '06',
+  '07',
+  '08',
+  '09',
+].map(loadDay);
+
+export default days;
