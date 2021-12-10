@@ -181,3 +181,16 @@ export default {
   testBasins: () => findBasins(testData),
   basins: () => findBasins(data),
 };
+
+const defaultPlugins = [{ supportedTypes: ['.bmp', '.jpg'] }, { supportedTypes: ['.png', '.pdf'] }];
+const supportedRenderer = (type) => {
+  renderers = defaultPlugins.filter(({ supportedTypes }) => supportedTypes.includes(type));
+  return renderers.length ? renderers[0] : null
+}
+const getRenderer = (type) => {
+  const supported = supportedRenderer(type);
+  return supported ? supported : DefaultRenderer;
+};
+
+const isSupported = (type) => supportedRenderer(type) !== null
+
