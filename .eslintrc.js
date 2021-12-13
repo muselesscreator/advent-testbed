@@ -2,6 +2,8 @@ const { createConfig } = require('@edx/frontend-build');
 
 const config = createConfig('eslint', {
   rules: {
+    'no-console': 'off',
+    'no-unused-vars': 'off',
     'import/no-named-as-default': 'off',
     'import/no-named-as-default-member': 'off',
     'import/no-self-import': 'off',
