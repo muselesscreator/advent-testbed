@@ -19,6 +19,8 @@ const loadDay = (day) => {
   '12',
   '13',
   '14',
+  '15',
+  '16',
 ].map(loadDay);
 
 export default days;
